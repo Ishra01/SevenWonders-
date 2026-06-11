@@ -1,360 +1,314 @@
-* {
+/* ── Reset ── */
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+/* ── Root container ── */
 body {
   font-family: 'Inter', sans-serif;
   background: #111;
+  overflow: hidden;
 }
 
-#root {
+#sw {
   width: 100%;
   height: 100vh;
   position: relative;
   overflow: hidden;
-  transition: background-color 700ms cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: default;
+  transition: background-color 500ms ease;
 }
 
-/* Ghost text behind images */
-#ghost-text {
+/* ── Ghost text ── */
+#ghost {
   position: absolute;
   inset: 0;
+  top: 5%;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 2;
   pointer-events: none;
   user-select: none;
-  z-index: 2;
-  top: 8%;
   font-family: 'Anton', sans-serif;
-  font-size: clamp(60px, 18vw, 220px);
+  font-size: clamp(55px, 16vw, 200px);
   font-weight: 900;
   color: white;
-  opacity: 0.13;
+  opacity: 0.1;
   line-height: 1;
   text-transform: uppercase;
   letter-spacing: -0.02em;
   white-space: nowrap;
-  text-align: center;
-  padding: 0 10px;
 }
 
-/* Top-left brand label */
+/* ── Brand label ── */
 .brand {
   position: absolute;
-  top: 18px;
+  top: 16px;
   left: 16px;
   z-index: 60;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   color: white;
-  opacity: 0.92;
+  opacity: 0.9;
   letter-spacing: 0.18em;
   font-family: 'Inter', sans-serif;
 }
 
-/* Carousel items */
-.carousel-item {
+/* ── Carousel ── */
+#carousel {
   position: absolute;
-  aspect-ratio: 0.6 / 1;
-  transition:
-    transform 700ms cubic-bezier(0.4, 0, 0.2, 1),
-    filter 700ms cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 700ms cubic-bezier(0.4, 0, 0.2, 1),
-    left 700ms cubic-bezier(0.4, 0, 0.2, 1),
-    bottom 700ms cubic-bezier(0.4, 0, 0.2, 1),
-    height 700ms cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform, filter, opacity;
-  overflow: hidden;
-  border-radius: 16px;
-  cursor: pointer;
+  inset: 0;
+  z-index: 3;
 }
 
-.carousel-item img {
+.ci {
+  position: absolute;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  /* GPU compositing — prevents CPU lag */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transition:
+    transform 500ms ease,
+    opacity   500ms ease,
+    left      500ms ease,
+    bottom    500ms ease,
+    height    500ms ease,
+    filter    500ms ease;
+  will-change: transform, opacity;
+}
+
+.ci img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
-  user-select: none;
-  border-radius: 16px;
   pointer-events: none;
+  user-select: none;
+  display: block;
+  border-radius: 14px;
 }
 
-/* Gradient label at bottom of each card */
-.wonder-label {
+/* Lazy load fade-in */
+.ci img.lazy  { opacity: 0; transition: opacity 300ms ease; }
+.ci img.loaded { opacity: 1; }
+
+/* Wonder name label on center card */
+.lbl {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, transparent 100%);
-  padding: 32px 14px 14px;
+  padding: 28px 12px 12px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
   color: white;
-  font-size: 13px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  border-radius: 0 0 16px 16px;
-  opacity: 0;
-  transition: opacity 300ms;
-  pointer-events: none;
-}
-
-.carousel-item.center .wonder-label {
-  opacity: 1;
-}
-
-/* Pulse ring on active center card */
-.pulse-ring {
-  position: absolute;
-  inset: 0;
-  border-radius: 16px;
-  border: 3px solid rgba(255, 255, 255, 0.7);
-  animation: pulse 1.8s ease-out infinite;
-  pointer-events: none;
-}
-
-@keyframes pulse {
-  0%   { opacity: 1; transform: scale(1); }
-  100% { opacity: 0; transform: scale(1.06); }
-}
-
-/* Bottom-left info + nav */
-.bottom-left {
-  position: absolute;
-  bottom: 24px;
-  left: 16px;
-  z-index: 60;
-  max-width: 300px;
-}
-
-@media (min-width: 640px) {
-  .bottom-left {
-    bottom: 40px;
-    left: 40px;
-  }
-}
-
-.bottom-left .title-text {
+  font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  font-size: 14px;
+  border-radius: 0 0 14px 14px;
+  opacity: 0;
+  transition: opacity 250ms;
+  pointer-events: none;
+}
+
+.ci.center .lbl { opacity: 1; }
+
+/* ── Bottom-left info + nav ── */
+.bl {
+  position: absolute;
+  bottom: 20px;
+  left: 14px;
+  z-index: 60;
+  max-width: 260px;
+}
+
+@media (min-width: 640px) {
+  .bl {
+    bottom: 36px;
+    left: 36px;
+  }
+}
+
+.bl .wn {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 13px;
   color: white;
   opacity: 0.97;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
   font-family: 'Inter', sans-serif;
+  letter-spacing: 0.04em;
 }
 
 @media (min-width: 640px) {
-  .bottom-left .title-text {
-    font-size: 20px;
-  }
+  .bl .wn { font-size: 18px; }
 }
 
-.bottom-left .desc-text {
-  font-size: 11px;
-  color: white;
-  opacity: 0.82;
-  line-height: 1.65;
-  margin-bottom: 14px;
-  font-family: 'Inter', sans-serif;
-  display: none;
-}
-
-@media (min-width: 640px) {
-  .bottom-left .desc-text {
-    display: block;
-    font-size: 13px;
-  }
-}
-
-.nav-btns {
+.navs {
   display: flex;
-  gap: 10px;
+  gap: 9px;
 }
 
-.nav-btn {
-  width: 46px;
-  height: 46px;
+.nb {
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.85);
+  border: 2px solid rgba(255,255,255,0.85);
   background: transparent;
   color: white;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 150ms, background-color 150ms;
-  font-size: 20px;
+  font-size: 19px;
+  transition: transform 120ms, background 120ms;
+  flex-shrink: 0;
 }
 
 @media (min-width: 640px) {
-  .nav-btn {
-    width: 56px;
-    height: 56px;
-    font-size: 22px;
-  }
+  .nb { width: 52px; height: 52px; font-size: 21px; }
 }
 
-.nav-btn:hover {
-  transform: scale(1.1);
-  background-color: rgba(255, 255, 255, 0.15);
-}
+.nb:hover  { transform: scale(1.1); background: rgba(255,255,255,0.14); }
+.nb:active { transform: scale(0.95); }
 
-.nav-btn:active {
-  transform: scale(0.96);
-}
-
-/* Bottom-right Discover link */
-.discover-link {
+/* ── Bottom-right Explore link ── */
+.disc {
   position: absolute;
-  bottom: 26px;
-  right: 16px;
+  bottom: 24px;
+  right: 14px;
   z-index: 60;
-  display: flex;
-  align-items: center;
-  gap: 6px;
   font-family: 'Anton', sans-serif;
-  font-size: clamp(18px, 3.5vw, 48px);
-  font-weight: 400;
+  font-size: clamp(16px, 3.2vw, 42px);
   color: white;
-  opacity: 0.95;
+  opacity: 0.93;
   letter-spacing: -0.02em;
-  line-height: 1;
   text-transform: uppercase;
-  text-decoration: none;
   cursor: pointer;
-  transition: opacity 200ms;
+  transition: opacity 180ms;
   user-select: none;
 }
 
-.discover-link:hover {
-  opacity: 1;
-}
+.disc:hover { opacity: 1; }
 
-/* Dot navigation */
+/* ── Dot indicators ── */
 .dots {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 15px;
+  right: 14px;
   z-index: 60;
   display: flex;
-  gap: 7px;
+  gap: 6px;
   align-items: center;
 }
 
 .dot {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255,255,255,0.35);
   cursor: pointer;
-  transition: background 300ms, transform 300ms;
+  transition: background 250ms, transform 250ms;
   border: none;
 }
 
-.dot.active {
+.dot.on {
   background: white;
-  transform: scale(1.4);
+  transform: scale(1.45);
 }
 
-/* Info panel (slides in from right) */
-.info-panel {
+/* ── Info panel ── */
+.panel {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
-  width: 280px;
+  width: 265px;
   z-index: 70;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 36px 24px;
-  pointer-events: none;
+  padding: 32px 20px;
   opacity: 0;
-  transform: translateX(30px);
-  transition: opacity 400ms ease, transform 400ms ease;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  transform: translateX(24px);
+  transition: opacity 350ms ease, transform 350ms ease;
+  pointer-events: none;
+  /* Limit blur to the panel only — cheaper than full-screen */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 @media (min-width: 640px) {
-  .info-panel {
-    width: 320px;
-  }
+  .panel { width: 300px; }
 }
 
-.info-panel.visible {
+.panel.on {
   opacity: 1;
   transform: translateX(0);
   pointer-events: auto;
 }
 
-.info-panel h2 {
+.panel h2 {
   font-family: 'Anton', sans-serif;
-  font-size: 28px;
+  font-size: 25px;
   color: white;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.01em;
   line-height: 1.1;
 }
 
-.info-panel p {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.88);
+.panel p {
+  font-size: 12px;
+  color: rgba(255,255,255,0.87);
   line-height: 1.75;
 }
 
-.close-btn {
+.xbtn {
   position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 34px;
-  height: 34px;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  border: 1.5px solid rgba(255,255,255,0.45);
   background: transparent;
   color: white;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 15px;
+  font-size: 14px;
+  transition: background 130ms;
   z-index: 80;
-  transition: background 150ms;
 }
 
-.close-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
+.xbtn:hover { background: rgba(255,255,255,0.18); }
 
-/* Tap hint tooltip */
-.tap-hint {
+/* ── Tap hint ── */
+.hint {
   position: absolute;
-  top: 42%;
+  top: 40%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 65;
   color: white;
   font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   opacity: 0;
-  transition: opacity 500ms;
-  text-align: center;
+  transition: opacity 400ms;
   white-space: nowrap;
-  background: rgba(0, 0, 0, 0.3);
-  padding: 6px 14px;
+  background: rgba(0,0,0,0.28);
+  padding: 5px 13px;
   border-radius: 20px;
   pointer-events: none;
 }
 
-.tap-hint.show {
-  opacity: 1;
-}
+.hint.on { opacity: 1; }
