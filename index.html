@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seven Wonders of the World</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="root">
+    <div class="brand">Seven Wonders</div>
+
+    <div id="ghost-text">WONDER</div>
+
+    <div class="dots" id="dots"></div>
+
+    <div id="carousel"></div>
+
+    <div class="bottom-left">
+      <p class="title-text" id="wonder-name">SEVEN WONDERS</p>
+      <p class="desc-text" id="wonder-desc">Tap any wonder to explore its story. Use arrows to navigate.</p>
+      <div class="nav-btns">
+        <button class="nav-btn" id="btn-prev" aria-label="Previous">&#8592;</button>
+        <button class="nav-btn" id="btn-next" aria-label="Next">&#8594;</button>
+      </div>
+    </div>
+
+    <div class="discover-link" id="discover-link">Explore &nbsp;&#8594;</div>
+
+    <div class="info-panel" id="info-panel">
+      <button class="close-btn" id="close-btn">&#10005;</button>
+      <h2 id="panel-title"></h2>
+      <p id="panel-desc"></p>
+    </div>
+
+    <div class="tap-hint" id="tap-hint">Tap a wonder to explore</div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
