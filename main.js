@@ -1,341 +1,279 @@
-const WONDERS = [
+const W = [
   {
     name: 'Taj Mahal',
-    location: 'Agra, India',
-    bg: '#C9856A',
-    panel: 'rgba(180,90,60,0.55)',
+    loc: 'Agra, India',
+    bg: '#B8705A',
     ghost: 'TAJ MAHAL',
-    src: 'https://th-thumbnailer.cdn-si-edu.com/CbddkFFO3OB80rRz83Iiuf-Z0FY=/1000x750/filters:no_upscale():focal(1471x1061:1472x1062)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/b6/30/b630b48b-7344-4661-9264-186b70531bdc/istock-478831658.jpg',
-    desc: 'Built by Shah Jahan in memory of his wife Mumtaz Mahal. A breathtaking white marble mausoleum symbolizing eternal love, featuring intricate carvings, paradise gardens, and a reflective pool.'
+    panel: 'rgba(160,75,50,.6)',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Taj_Mahal_%28Edited%29.jpeg/1280px-Taj_Mahal_%28Edited%29.jpeg',
+    desc: 'Built by Shah Jahan for his beloved wife Mumtaz Mahal. This white marble mausoleum in Agra is an eternal symbol of love, with intricate carvings, paradise gardens, and a reflecting pool.'
   },
   {
     name: 'Great Wall',
-    location: 'China',
-    bg: '#5A7A5E',
-    panel: 'rgba(50,100,55,0.55)',
+    loc: 'China',
+    bg: '#4E7050',
     ghost: 'GREAT WALL',
-    src: 'https://cdn.britannica.com/89/179589-138-3EE27C94/Overview-Great-Wall-of-China.jpg?w=800&h=450&c=crop',
-    desc: 'Stretching over 13,000 miles across mountains and deserts, the Great Wall was built over centuries to protect against invasions. A remarkable feat of human engineering and willpower.'
+    panel: 'rgba(40,85,45,.6)',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/The_Great_Wall_of_China_at_Jinshanling-edit.jpg/1280px-The_Great_Wall_of_China_at_Jinshanling-edit.jpg',
+    desc: 'Stretching 13,000+ miles across mountains and deserts, built over centuries to defend against invasions. One of the greatest feats of human engineering ever attempted.'
   },
   {
     name: 'Petra',
-    location: 'Jordan',
-    bg: '#A06045',
-    panel: 'rgba(160,80,40,0.55)',
+    loc: 'Jordan',
+    bg: '#9A5838',
     ghost: 'PETRA',
-    src: 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Treasury_petra_crop.jpeg',
-    desc: 'The "Rose City" — an ancient city carved into red sandstone cliffs. Once a thriving trade center, Petra features magnificent tombs, temples, and the iconic Al-Khazneh Treasury.'
+    panel: 'rgba(150,70,40,.6)',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Treasury_petra_crop.jpeg/800px-Treasury_petra_crop.jpeg',
+    desc: 'The "Rose City" carved into red sandstone cliffs. Once a thriving Nabataean trade hub, Petra features the iconic Al-Khazneh Treasury, grand tombs and ancient temples.'
   },
   {
     name: 'Machu Picchu',
-    location: 'Peru',
-    bg: '#4A7A62',
-    panel: 'rgba(40,100,65,0.55)',
+    loc: 'Peru',
+    bg: '#3D7055',
     ghost: 'MACHU PICCHU',
-    src: 'https://upload.wikimedia.org/wikipedia/commons/b/bb/Machu_Picchu%2C_2023_%28012%29.jpg',
-    desc: 'Perched high in the Andes, this mysterious Incan city was abandoned centuries ago. Stone-built temples and terraces showcase advanced engineering, surrounded by lush green peaks.'
+    panel: 'rgba(35,90,55,.6)',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Machu_Picchu%2C_Peru.jpg/1280px-Machu_Picchu%2C_Peru.jpg',
+    desc: 'A mysterious Inca citadel perched high in the Andes, abandoned centuries ago. Its stone temples, terraces and plazas showcase engineering mastery amid breathtaking mountain scenery.'
   },
   {
     name: 'Christ the Redeemer',
-    location: 'Rio de Janeiro',
-    bg: '#3A6A8A',
-    panel: 'rgba(30,80,120,0.55)',
+    loc: 'Rio de Janeiro',
+    bg: '#2E5F82',
     ghost: 'REDEEMER',
-    src: 'https://upload.wikimedia.org/wikipedia/commons/4/4f/Christ_the_Redeemer_-_Cristo_Redentor.jpg',
-    desc: 'Standing 98 feet tall atop Mount Corcovado. Made of reinforced concrete and soapstone, this iconic statue offers breathtaking panoramic views of Rio and the coastline.'
+    panel: 'rgba(25,70,115,.6)',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Christ_the_Redeemer_-_Cristo_Redentor.jpg/800px-Christ_the_Redeemer_-_Cristo_Redentor.jpg',
+    desc: 'Standing 98 feet tall atop Corcovado Mountain, this Art Deco masterpiece of reinforced concrete and soapstone overlooks Rio de Janeiro with open arms — a global icon of peace.'
   },
   {
     name: 'Colosseum',
-    location: 'Rome, Italy',
-    bg: '#7A6A40',
-    panel: 'rgba(120,95,40,0.55)',
+    loc: 'Rome, Italy',
+    bg: '#6E5E32',
     ghost: 'COLOSSEUM',
-    src: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Colosseo_2020.jpg',
-    desc: 'Built in AD 80, this ancient amphitheater once hosted gladiator fights for 50,000 spectators. Despite centuries of wear, it remains the most powerful symbol of Roman civilization.'
+    panel: 'rgba(110,85,30,.6)',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Colosseo_2020.jpg/1280px-Colosseo_2020.jpg',
+    desc: 'Completed in AD 80, this grand amphitheater seated 50,000 spectators for gladiatorial combat and public spectacles. It remains the most iconic symbol of the Roman Empire.'
   },
   {
     name: 'Chichén Itzá',
-    location: 'Mexico',
-    bg: '#6A5A8A',
-    panel: 'rgba(90,65,130,0.55)',
+    loc: 'Mexico',
+    bg: '#5A4880',
     ghost: 'CHICHÉN ITZÁ',
-    src: 'https://upload.wikimedia.org/wikipedia/commons/5/51/Chichen_Itza_3.jpg',
-    desc: 'A sacred Mayan pyramid renowned for its precise astronomical alignment. During equinox, sunlight creates a serpent-like shadow on the steps — a testament to the Mayans\' advanced knowledge.'
+    panel: 'rgba(80,55,125,.6)',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Chichen_Itza_3.jpg/1280px-Chichen_Itza_3.jpg',
+    desc: 'A sacred Mayan pyramid with perfect astronomical precision. At each equinox, sunlight creates a serpent shadow down the steps — a testament to the Mayans\' extraordinary knowledge of the cosmos.'
   }
 ];
 
-const N = WONDERS.length;
-let activeIndex = 0;
-let isAnimating = false;
-let panelOpen = false;
-let hintShown = false;
+const N = W.length;
+let idx = 0, anim = false, open = false;
 
-// DOM references
-const root        = document.getElementById('root');
-const carousel    = document.getElementById('carousel');
-const ghostText   = document.getElementById('ghost-text');
-const wonderName  = document.getElementById('wonder-name');
-const wonderDesc  = document.getElementById('wonder-desc');
-const infoPanel   = document.getElementById('info-panel');
-const panelTitle  = document.getElementById('panel-title');
-const panelDesc   = document.getElementById('panel-desc');
-const closeBtn    = document.getElementById('close-btn');
-const tapHint     = document.getElementById('tap-hint');
-const dotsEl      = document.getElementById('dots');
-const discoverLink = document.getElementById('discover-link');
+const root   = document.getElementById('sw');
+const car    = document.getElementById('carousel');
+const ghost  = document.getElementById('ghost');
+const wnEl   = document.getElementById('wn');
+const panel  = document.getElementById('panel');
+const ptitle = document.getElementById('ptitle');
+const pdesc  = document.getElementById('pdesc');
+const dotsEl = document.getElementById('dots');
+const hint   = document.getElementById('hint');
 
-// Preload all images
-WONDERS.forEach(w => {
-  const img = new Image();
-  img.src = w.src;
-});
+/* Compute which index fills each role */
+function roles(a) {
+  return { c: a, l: (a + N - 1) % N, r: (a + 1) % N, b: (a + 2) % N };
+}
 
-// Compute which index fills which role
-function getRoles(active) {
+/* Return CSS style object for a given card index */
+function styleFor(i) {
+  const r   = roles(idx);
+  const mob = window.innerWidth < 600;
+
+  if (r.c === i) return {
+    left: '50%', bottom: '0',
+    height: mob ? '60%' : '78%',
+    transform: `translateX(-50%) translateZ(0) scale(${mob ? 1.28 : 1.5})`,
+    filter: 'none', opacity: '1', zIndex: '20'
+  };
+  if (r.l === i) return {
+    left: mob ? '18%' : '26%',
+    bottom: mob ? '20%' : '8%',
+    height: mob ? '25%' : '36%',
+    transform: 'translateX(-50%) translateZ(0) scale(.88)',
+    filter: 'blur(1px)', opacity: '.75', zIndex: '10'
+  };
+  if (r.r === i) return {
+    left: mob ? '82%' : '74%',
+    bottom: mob ? '20%' : '8%',
+    height: mob ? '25%' : '36%',
+    transform: 'translateX(-50%) translateZ(0) scale(.88)',
+    filter: 'blur(1px)', opacity: '.75', zIndex: '10'
+  };
+  if (r.b === i) return {
+    left: '50%',
+    bottom: mob ? '24%' : '12%',
+    height: mob ? '17%' : '22%',
+    transform: 'translateX(-50%) translateZ(0) scale(.72)',
+    filter: 'blur(2px)', opacity: '.45', zIndex: '5'
+  };
   return {
-    center:    active,
-    left:      (active + N - 1) % N,
-    right:     (active + 1) % N,
-    back:      (active + 2) % N
+    left: '50%', bottom: '8%', height: '18%',
+    transform: 'translateX(-50%) translateZ(0) scale(.55)',
+    filter: 'blur(4px)', opacity: '0', zIndex: '1'
   };
 }
 
-// Return style object for each role
-function getStyleForIndex(idx) {
-  const roles = getRoles(activeIndex);
-  const isMobile = window.innerWidth < 640;
-
-  if (roles.center === idx) {
-    return {
-      transform: `translateX(-50%) scale(${isMobile ? 1.3 : 1.55})`,
-      filter: 'blur(0px)',
-      opacity: '1',
-      zIndex: '20',
-      left: '50%',
-      height: isMobile ? '62%' : '80%',
-      bottom: '0'
-    };
-  } else if (roles.left === idx) {
-    return {
-      transform: 'translateX(-50%) scale(0.9)',
-      filter: 'blur(1.5px)',
-      opacity: '0.78',
-      zIndex: '10',
-      left: isMobile ? '20%' : '28%',
-      height: isMobile ? '26%' : '38%',
-      bottom: isMobile ? '22%' : '10%'
-    };
-  } else if (roles.right === idx) {
-    return {
-      transform: 'translateX(-50%) scale(0.9)',
-      filter: 'blur(1.5px)',
-      opacity: '0.78',
-      zIndex: '10',
-      left: isMobile ? '80%' : '72%',
-      height: isMobile ? '26%' : '38%',
-      bottom: isMobile ? '22%' : '10%'
-    };
-  } else if (roles.back === idx) {
-    return {
-      transform: 'translateX(-50%) scale(0.7)',
-      filter: 'blur(3px)',
-      opacity: '0.5',
-      zIndex: '5',
-      left: '50%',
-      height: isMobile ? '18%' : '24%',
-      bottom: isMobile ? '26%' : '14%'
-    };
-  } else {
-    return {
-      transform: 'translateX(-50%) scale(0.6)',
-      filter: 'blur(5px)',
-      opacity: '0',
-      zIndex: '1',
-      left: '50%',
-      height: '20%',
-      bottom: '10%'
-    };
-  }
+function applyStyle(el, i) {
+  Object.assign(el.style, styleFor(i));
 }
 
-// Apply computed styles to a carousel item element
-function applyStyle(el, idx) {
-  const s = getStyleForIndex(idx);
-  el.style.left      = s.left;
-  el.style.bottom    = s.bottom;
-  el.style.height    = s.height;
-  el.style.transform = s.transform;
-  el.style.filter    = s.filter;
-  el.style.opacity   = s.opacity;
-  el.style.zIndex    = s.zIndex;
+/* Lazy-load a single image */
+function lazyLoad(img, src) {
+  const t = new Image();
+  t.onload = () => { img.src = src; img.classList.add('loaded'); };
+  t.src = src;
 }
 
-// Refresh role class names (center/left/right/back)
-function updateClassNames() {
-  const roles = getRoles(activeIndex);
-  Array.from(carousel.children).forEach((el, i) => {
-    el.classList.remove('center', 'left', 'right', 'back');
-    if      (roles.center === i) el.classList.add('center');
-    else if (roles.left   === i) el.classList.add('left');
-    else if (roles.right  === i) el.classList.add('right');
-    else if (roles.back   === i) el.classList.add('back');
-  });
-}
+/* Build all carousel card elements */
+function build() {
+  car.innerHTML = '';
+  W.forEach((w, i) => {
+    const el  = document.createElement('div');
+    el.className = 'ci';
 
-// Build all carousel item elements
-function buildCarousel() {
-  carousel.innerHTML = '';
-  WONDERS.forEach((w, i) => {
-    const el = document.createElement('div');
-    el.className = 'carousel-item';
-    el.dataset.idx = i;
+    const img = document.createElement('img');
+    img.className = 'lazy';
+    img.alt = w.name;
+    img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="1" height="1"%3E%3C/svg%3E';
 
-    const imgEl = document.createElement('img');
-    imgEl.src = w.src;
-    imgEl.alt = w.name;
-    imgEl.draggable = false;
+    const lbl = document.createElement('div');
+    lbl.className = 'lbl';
+    lbl.textContent = w.name;
 
-    const label = document.createElement('div');
-    label.className = 'wonder-label';
-    label.textContent = w.name;
-
-    const pulse = document.createElement('div');
-    pulse.className = 'pulse-ring';
-    pulse.style.display = 'none';
-
-    el.appendChild(imgEl);
-    el.appendChild(label);
-    el.appendChild(pulse);
-    carousel.appendChild(el);
-
-    el.addEventListener('click', () => handleItemClick(i));
+    el.appendChild(img);
+    el.appendChild(lbl);
+    car.appendChild(el);
+    el.addEventListener('click', () => handleClick(i));
     applyStyle(el, i);
-  });
-  updateClassNames();
-  updatePulse();
-}
 
-// Show pulse ring only on center card
-function updatePulse() {
-  Array.from(carousel.children).forEach((el, i) => {
-    const ring = el.querySelector('.pulse-ring');
-    if (ring) ring.style.display = (i === activeIndex) ? 'block' : 'none';
-  });
-}
-
-// Update all dynamic UI after index change
-function updateUI() {
-  const w = WONDERS[activeIndex];
-  root.style.backgroundColor = w.bg;
-  ghostText.textContent = w.ghost;
-  wonderName.textContent = w.name.toUpperCase() + ' · ' + w.location;
-
-  Array.from(carousel.children).forEach((el, i) => applyStyle(el, i));
-  updateClassNames();
-  updatePulse();
-
-  Array.from(dotsEl.children).forEach((d, i) => {
-    d.classList.toggle('active', i === activeIndex);
-  });
-}
-
-// Navigate prev / next
-function navigate(dir) {
-  if (isAnimating) return;
-  isAnimating = true;
-  activeIndex = dir === 'next'
-    ? (activeIndex + 1) % N
-    : (activeIndex + N - 1) % N;
-  if (panelOpen) closePanel();
-  updateUI();
-  setTimeout(() => { isAnimating = false; }, 700);
-}
-
-// Handle click on any carousel item
-function handleItemClick(idx) {
-  const roles = getRoles(activeIndex);
-  if (roles.center === idx) {
-    openPanel(idx);
-  } else if (roles.right === idx) {
-    navigate('next');
-  } else if (roles.left === idx) {
-    navigate('prev');
-  } else {
-    if (!isAnimating) {
-      isAnimating = true;
-      activeIndex = idx;
-      if (panelOpen) closePanel();
-      updateUI();
-      setTimeout(() => { isAnimating = false; }, 700);
+    /* Load visible cards immediately; others stagger in background */
+    const r = roles(idx);
+    if (i === r.c || i === r.l || i === r.r) {
+      lazyLoad(img, w.src);
+    } else {
+      setTimeout(() => lazyLoad(img, w.src), (i + 1) * 400);
     }
+  });
+  updateClasses();
+}
+
+/* Sync role class names */
+function updateClasses() {
+  const r = roles(idx);
+  Array.from(car.children).forEach((el, i) => {
+    el.classList.remove('center', 'left', 'right', 'back');
+    if      (r.c === i) el.classList.add('center');
+    else if (r.l === i) el.classList.add('left');
+    else if (r.r === i) el.classList.add('right');
+    else if (r.b === i) el.classList.add('back');
+  });
+}
+
+/* Refresh everything after index change */
+function updateUI() {
+  const w = W[idx];
+  root.style.backgroundColor = w.bg;
+  ghost.textContent = w.ghost;
+  wnEl.textContent  = w.name.toUpperCase() + ' · ' + w.loc;
+  Array.from(car.children).forEach((el, i) => applyStyle(el, i));
+  updateClasses();
+  Array.from(dotsEl.children).forEach((d, i) => d.classList.toggle('on', i === idx));
+}
+
+/* Navigate prev / next */
+function go(dir) {
+  if (anim) return;
+  anim = true;
+  idx  = dir === 'n' ? (idx + 1) % N : (idx + N - 1) % N;
+  if (open) closePanel();
+  updateUI();
+  setTimeout(() => { anim = false; }, 520);
+}
+
+/* Handle click on any card */
+function handleClick(i) {
+  const r = roles(idx);
+  if      (r.c === i)   { openPanel(i); }
+  else if (r.r === i)   { go('n'); }
+  else if (r.l === i)   { go('p'); }
+  else if (!anim) {
+    anim = true;
+    idx  = i;
+    if (open) closePanel();
+    updateUI();
+    setTimeout(() => { anim = false; }, 520);
   }
 }
 
-// Open info panel for a wonder
-function openPanel(idx) {
-  const w = WONDERS[idx];
-  panelTitle.textContent = w.name;
-  panelDesc.textContent  = w.desc;
-  infoPanel.style.background = w.panel;
-  infoPanel.classList.add('visible');
-  panelOpen = true;
+/* Open info panel */
+function openPanel(i) {
+  const w = W[i];
+  ptitle.textContent    = w.name;
+  pdesc.textContent     = w.desc;
+  panel.style.background = w.panel;
+  panel.classList.add('on');
+  open = true;
 }
 
-// Close info panel
+/* Close info panel */
 function closePanel() {
-  infoPanel.classList.remove('visible');
-  panelOpen = false;
+  panel.classList.remove('on');
+  open = false;
 }
 
-// Event listeners
-closeBtn.addEventListener('click', closePanel);
-document.getElementById('btn-prev').addEventListener('click', () => navigate('prev'));
-document.getElementById('btn-next').addEventListener('click', () => navigate('next'));
-discoverLink.addEventListener('click', () => openPanel(activeIndex));
+/* Event listeners */
+document.getElementById('xbtn').addEventListener('click', closePanel);
+document.getElementById('bp').addEventListener('click', () => go('p'));
+document.getElementById('bn').addEventListener('click', () => go('n'));
+document.getElementById('disc').addEventListener('click', () => openPanel(idx));
 
-// Build dot indicators
-WONDERS.forEach((_, i) => {
+/* Build dot indicators */
+W.forEach((_, i) => {
   const d = document.createElement('button');
-  d.className = 'dot' + (i === 0 ? ' active' : '');
-  d.setAttribute('aria-label', 'Go to ' + WONDERS[i].name);
+  d.className = 'dot' + (i === 0 ? ' on' : '');
+  d.setAttribute('aria-label', 'Go to ' + W[i].name);
   d.addEventListener('click', () => {
-    if (!isAnimating && i !== activeIndex) {
-      isAnimating = true;
-      activeIndex = i;
-      if (panelOpen) closePanel();
+    if (!anim && i !== idx) {
+      anim = true;
+      idx  = i;
+      if (open) closePanel();
       updateUI();
-      setTimeout(() => { isAnimating = false; }, 700);
+      setTimeout(() => { anim = false; }, 520);
     }
   });
   dotsEl.appendChild(d);
 });
 
-// Keyboard navigation
+/* Keyboard navigation */
 document.addEventListener('keydown', e => {
-  if (e.key === 'ArrowRight') navigate('next');
-  if (e.key === 'ArrowLeft')  navigate('prev');
-  if (e.key === 'Escape' && panelOpen) closePanel();
+  if (e.key === 'ArrowRight')          go('n');
+  if (e.key === 'ArrowLeft')           go('p');
+  if (e.key === 'Escape' && open)      closePanel();
 });
 
-// Touch / swipe support
-let touchStartX = 0;
-root.addEventListener('touchstart', e => {
-  touchStartX = e.touches[0].clientX;
-}, { passive: true });
-root.addEventListener('touchend', e => {
-  const dx = e.changedTouches[0].clientX - touchStartX;
-  if (Math.abs(dx) > 50) navigate(dx < 0 ? 'next' : 'prev');
+/* Touch / swipe support */
+let tx = 0;
+root.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+root.addEventListener('touchend',   e => {
+  const dx = e.changedTouches[0].clientX - tx;
+  if (Math.abs(dx) > 45) go(dx < 0 ? 'n' : 'p');
 }, { passive: true });
 
-// Recalculate styles on resize
+/* Recalculate on resize */
 window.addEventListener('resize', () => {
-  Array.from(carousel.children).forEach((el, i) => applyStyle(el, i));
+  Array.from(car.children).forEach((el, i) => applyStyle(el, i));
 });
 
-// Init
-buildCarousel();
+/* Init */
+build();
 updateUI();
-
-// Show tap hint briefly
-tapHint.classList.add('show');
-setTimeout(() => { tapHint.classList.remove('show'); }, 3000);
+hint.classList.add('on');
+setTimeout(() => hint.classList.remove('on'), 2800);
