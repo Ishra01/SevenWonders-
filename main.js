@@ -84,40 +84,80 @@ function roles(a) {
 
 /* Return CSS style object for a given card index */
 function styleFor(i) {
-  const r   = roles(idx);
+  const r = roles(idx);
   const mob = window.innerWidth < 600;
 
-  if (r.c === i) return {
-    left: '50%', bottom: '0',
-    height: mob ? '60%' : '78%',
-    transform: `translateX(-50%) translateZ(0) scale(${mob ? 1.28 : 1.5})`,
-    filter: 'none', opacity: '1', zIndex: '20'
-  };
-  if (r.l === i) return {
-    left: mob ? '18%' : '26%',
-    bottom: mob ? '20%' : '8%',
-    height: mob ? '25%' : '36%',
-    transform: 'translateX(-50%) translateZ(0) scale(.88)',
-    filter: 'blur(1px)', opacity: '.75', zIndex: '10'
-  };
-  if (r.r === i) return {
-    left: mob ? '82%' : '74%',
-    bottom: mob ? '20%' : '8%',
-    height: mob ? '25%' : '36%',
-    transform: 'translateX(-50%) translateZ(0) scale(.88)',
-    filter: 'blur(1px)', opacity: '.75', zIndex: '10'
-  };
-  if (r.b === i) return {
-    left: '50%',
-    bottom: mob ? '24%' : '12%',
-    height: mob ? '17%' : '22%',
-    transform: 'translateX(-50%) translateZ(0) scale(.72)',
-    filter: 'blur(2px)', opacity: '.45', zIndex: '5'
-  };
+  // Card sizes
+  const CENTER_W = mob ? 230 : 340;
+  const CENTER_H = mob ? 345 : 510;
+
+  const SIDE_W = mob ? 130 : 200;
+  const SIDE_H = mob ? 195 : 300;
+
+  const BACK_W = mob ? 90 : 140;
+  const BACK_H = mob ? 135 : 210;
+
+  if (r.c === i) {
+    return {
+      left: "50%",
+      bottom: mob ? "6%" : "2%",
+      width: CENTER_W + "px",
+      height: CENTER_H + "px",
+      transform: "translateX(-50%) scale(1)",
+      opacity: "1",
+      filter: "none",
+      zIndex: "20"
+    };
+  }
+
+  if (r.l === i) {
+    return {
+      left: mob ? "20%" : "24%",
+      bottom: mob ? "18%" : "12%",
+      width: SIDE_W + "px",
+      height: SIDE_H + "px",
+      transform: "translateX(-50%) scale(.95)",
+      opacity: ".8",
+      filter: "blur(1px)",
+      zIndex: "10"
+    };
+  }
+
+  if (r.r === i) {
+    return {
+      left: mob ? "80%" : "76%",
+      bottom: mob ? "18%" : "12%",
+      width: SIDE_W + "px",
+      height: SIDE_H + "px",
+      transform: "translateX(-50%) scale(.95)",
+      opacity: ".8",
+      filter: "blur(1px)",
+      zIndex: "10"
+    };
+  }
+
+  if (r.b === i) {
+    return {
+      left: "50%",
+      bottom: mob ? "26%" : "18%",
+      width: BACK_W + "px",
+      height: BACK_H + "px",
+      transform: "translateX(-50%) scale(.8)",
+      opacity: ".45",
+      filter: "blur(3px)",
+      zIndex: "5"
+    };
+  }
+
   return {
-    left: '50%', bottom: '8%', height: '18%',
-    transform: 'translateX(-50%) translateZ(0) scale(.55)',
-    filter: 'blur(4px)', opacity: '0', zIndex: '1'
+    left: "50%",
+    bottom: "18%",
+    width: BACK_W + "px",
+    height: BACK_H + "px",
+    transform: "translateX(-50%) scale(.6)",
+    opacity: "0",
+    filter: "blur(5px)",
+    zIndex: "1"
   };
 }
 
