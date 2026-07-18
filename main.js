@@ -23,7 +23,7 @@ const W = [
     bg: '#9A5838',
     ghost: 'PETRA',
     panel: 'rgba(150,70,40,.6)',
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Treasury_petra_crop.jpeg/800px-Treasury_petra_crop.jpeg',
+    src: 'https://images.unsplash.com/photo-1579606032821-4e6161c81bd3?w=1200&q=80',
     desc: 'The "Rose City" carved into red sandstone cliffs. Once a thriving Nabataean trade hub, Petra features the iconic Al-Khazneh Treasury, grand tombs and ancient temples.'
   },
   {
@@ -41,7 +41,7 @@ const W = [
     bg: '#2E5F82',
     ghost: 'REDEEMER',
     panel: 'rgba(25,70,115,.6)',
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Christ_the_Redeemer_-_Cristo_Redentor.jpg/800px-Christ_the_Redeemer_-_Cristo_Redentor.jpg',
+    src: 'https://images.unsplash.com/photo-1544989164-31b6c6459878?w=1200&q=80',
     desc: 'Standing 98 feet tall atop Corcovado Mountain, this Art Deco masterpiece of reinforced concrete and soapstone overlooks Rio de Janeiro with open arms — a global icon of peace.'
   },
   {
