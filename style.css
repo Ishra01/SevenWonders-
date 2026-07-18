@@ -178,10 +178,10 @@ body {
 
 /* ── Bottom-right Explore link ── */
 .disc {
-  position: absolute;
+  position: fixed;
   bottom: 24px;
   right: 14px;
-  z-index: 60;
+  z-index: 9999;
   font-family: 'Anton', sans-serif;
   font-size: clamp(16px, 3.2vw, 42px);
   color: white;
